@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel rendered="#{viewBean.viewHome == 4}">
+		<p:card
+			header="Cerca se il tuo cointestatario è gia un nostro affiliato, in caso contrario, clicca su registra!"
+			styleClass="center-card">
+					
+			<div style="display: flex; justify-content: space-between;">
+				<div>
+					<p:outputLabel for="emailCointestatario" value="Inserisci email " />
+					<p:inputText id="emailCointestatario"
+						value="#{userBean.userCointestatario.email}" />
+					<p:commandButton value="Cerca e Aggiungi"
+						action="#{userBean.findByEmailCointestatario()}" update="actions" />
+					<div style="margin-top: 10px;">
+
+						<p:commandButton style="margin-left: 0px" value="Registra Utente"
+							action="#{viewBean.setViewHome(7)}" update="actions" />
+					</div>
+				</div>
+				<div style="margin-top: -50px">
+					<p:commandButton icon="pi pi-fw pi-times"
+				style="margin:10px; color: white; background-color: red; border-color: red;"
+				 action="#{userBean.resetListAndBackhome()}" update="actions" />
+				</div>
+			</div>
+		</p:card>
+			<p:messages id="messageUserNonTrovato" showDetail="true"
+				closable="true">
+				<p:autoUpdate />
+			</p:messages>
+	</p:outputPanel>
+</ui:composition>

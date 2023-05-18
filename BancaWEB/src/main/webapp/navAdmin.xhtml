@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:outputPanel>
+		<p:card>
+			<div>
+				<p:commandButton
+					style="color: white; background-color: red; border-color: red;"
+					value="LOGOUT" action="#{userBean.logout()}"
+					icon="pi pi-fw pi-power-off" />
+			</div>
+		</p:card>
+	</p:outputPanel>
+</ui:composition>
+

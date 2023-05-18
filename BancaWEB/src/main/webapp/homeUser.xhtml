@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>User Profile</title>
+           <style>     
+              #main{
+                    height: 70vh;
+               		background-image: url('img/ExoBack.png');
+               		background-size: 140vh;
+               		background-position: center;
+              		
+              }
+           </style>
+    </h:head>
+
+    <h:body style="background-color: #191919; display-block: none">
+       <h:form>    
+        <ui:include src="/navBar.xhtml" /> 
+        <ui:include src="/NavBarTasti.xhtml" />               
+            <div id="main" >
+            
+               <p:outputPanel id="actions">             
+                	<div>
+                	      <ui:include src="riepilogoConto.xhtml"/>
+									 
+                	      <ui:include src="creaConto.xhtml"/>
+					 	  
+					 	  <ui:include src="introUser.xhtml" />
+					 	  
+					 	  <ui:include src="successCreazioneConto.xhtml" />
+					 	  
+					 	  <ui:include src="ConfermaContoIndividuale.xhtml" />				 	  
+					
+                	      <ui:include src="CreaContoCointestato.xhtml"/>
+					 									 
+                	      <ui:include src="confermaContoCointestato.xhtml"/>
+                	      
+                	      <ui:include src="registraCointestatario.xhtml"/>
+					 
+					 
+                	</div>				
+               </p:outputPanel>
+            </div>
+        </h:form>
+            <ui:include src="/footer.xhtml" />
+    </h:body>
+</html>

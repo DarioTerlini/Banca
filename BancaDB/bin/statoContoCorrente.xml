@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="it.exolab.bancaDB.mappers.StatoContoCorrenteMapper">
+  
+  
+  
+  
+  <resultMap id ="StatoContoCorrenteMapper" type="it.exolab.bancaDB.models.StatoContoCorrente">
+   <result property ="idStatoContoCorrente" column ="ID_STATO_CONTO_CORRENTE"/>
+   <result property ="descrizione" column = "DESCRIZIONE"/>
+   
+   <collection property="listaConti" ofType="it.exolab.bancaDB.models.ContoCorrente">
+   <result property ="idContoCorrente" column ="ID_CONTO_CORRENTE"/>
+		<result property ="dataCreazione" column ="DATA_CREAZIONE"/>
+		<result property ="saldo" column ="SALDO"/>
+		<result property ="idUser" column = "ID_USER"/>
+		<result property ="idStatoContoCorrente" column = "ID_STATO_CONTO_CORRENTE"/>
+   </collection>
+  
+   </resultMap>
+   </mapper>

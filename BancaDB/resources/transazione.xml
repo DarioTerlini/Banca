@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="it.exolab.bancaDB.mappers.TransazioneMapper">
+ 
+ 
+ <select id="findById" resultMap="TransazioneMapper" parameterType="it.exolab.bancaDB.models.Transazione">
+SELECT  T.ID_TRANSAZIONE, T.IMPORTO, T.ID_CONTO_CORRENTE, 
+			C.ID_CONTO_CORRENTE, C.DATA_CREAZIONE, C.SALDO, C.ID_STATO_CONTO_CORRENTE,
+			ST.DESCRIZIONE,
+		   TT.DESCRIZIONE_TIPO
+          FROM TRANSAZIONE  AS T
+		  LEFT JOIN CONTO_CORRENTE AS C ON T.ID_CONTO_CORRENTE = C.ID_CONTO_CORRENTE
+		   LEFT JOIN STATO_TRANSAZIONE AS ST ON T.ID_STATO_TRANSAZIONE = ST.ID_STATO_TRANSAZIONE
+		   LEFT JOIN TIPO_TRANSAZIONE AS TT ON T.ID_TIPO_TRANSAZIONE = TT.ID_TIPO_TRANSAZIONE
+		   WHERE T.ID_TRANSAZIONE = #{idTransazione};
+	</select>
+ 
+ <select id="findAll" resultMap="TransazioneMapper">
+          SELECT 
+		   T.ID_TRANSAZIONE, T.IMPORTO, T.ID_CONTO_CORRENTE, T.ID_STATO_TRANSAZIONE, T.ID_TIPO_TRANSAZIONE,
+           C.ID_CONTO_CORRENTE, C.DATA_CREAZIONE, C.SALDO, C.ID_STATO_CONTO_CORRENTE,
+		   ST.DESCRIZIONE,
+		   TT.DESCRIZIONE_TIPO,
+		   U.NOME, U.COGNOME, U.ID_USER, U.EMAIL
+           FROM TRANSAZIONE  AS T
+           LEFT JOIN CONTO_CORRENTE AS C ON T.ID_CONTO_CORRENTE = C.ID_CONTO_CORRENTE
+		   LEFT JOIN STATO_TRANSAZIONE AS ST ON T.ID_STATO_TRANSAZIONE = ST.ID_STATO_TRANSAZIONE
+		   LEFT JOIN TIPO_TRANSAZIONE AS TT ON T.ID_TIPO_TRANSAZIONE = TT.ID_TIPO_TRANSAZIONE
+		   LEFT JOIN USER AS U ON U.ID_USER = C.ID_USER
+	</select>
+	
+	<select id="findAllTransazioneByIdStato" resultMap="TransazioneMapper">
+          SELECT 
+		   T.ID_TRANSAZIONE, T.IMPORTO, T.ID_CONTO_CORRENTE, T.ID_STATO_TRANSAZIONE, T.ID_TIPO_TRANSAZIONE,
+           C.ID_CONTO_CORRENTE, C.DATA_CREAZIONE, C.SALDO, C.ID_STATO_CONTO_CORRENTE,
+		   ST.DESCRIZIONE,
+		   TT.DESCRIZIONE_TIPO,
+		   U.NOME, U.COGNOME, U.ID_USER
+           FROM TRANSAZIONE  AS T
+           LEFT JOIN CONTO_CORRENTE AS C ON T.ID_CONTO_CORRENTE = C.ID_CONTO_CORRENTE
+		   LEFT JOIN STATO_TRANSAZIONE AS ST ON T.ID_STATO_TRANSAZIONE = ST.ID_STATO_TRANSAZIONE
+		   LEFT JOIN TIPO_TRANSAZIONE AS TT ON T.ID_TIPO_TRANSAZIONE = TT.ID_TIPO_TRANSAZIONE
+		   LEFT JOIN USER AS U ON U.ID_USER = C.ID_USER
+		   WHERE T.ID_STATO_TRANSAZIONE = #{idStatoTransazione};
+	</select>
+	
+	
+		<insert id="insert" parameterType="it.exolab.bancaDB.models.Transazione" useGeneratedKeys="true" keyProperty="idTransazione" keyColumn="ID_TRANSAZIONE" >
+		INSERT INTO TRANSAZIONE(IMPORTO, ID_CONTO_CORRENTE, ID_STATO_TRANSAZIONE, ID_TIPO_TRANSAZIONE)
+		VALUES(
+			#{importo},
+			#{idContoCorrente},
+			2,
+            #{idTipoTransazione}      
+		);
+	</insert>
+	
+	<update id="gestisciTransazione"
+		parameterType="it.exolab.bancaDB.models.Transazione">
+
+		UPDATE TRANSAZIONE SET
+			ID_STATO_TRANSAZIONE=#{idStatoTransazione}
+		WHERE ID_TRANSAZIONE = #{idTransazione}
+	</update>
+	
+	
+
+<resultMap id ="TransazioneMapper" type="it.exolab.bancaDB.models.Transazione">
+		<result property ="idTransazione" column ="ID_TRANSAZIONE"/>
+		<result property ="importo" column ="IMPORTO"/>
+		<result property ="idStatoTransazione" column ="ID_STATO_TRANSAZIONE"/>
+		<result property ="idTipoTransazione" column = "ID_TIPO_TRANSAZIONE"/>
+		<result property ="idContoCorrente" column = "ID_CONTO_CORRENTE"/>
+	<!-- 		collection viene usata per le liste ed il tipo viene definito da "ofType", in caso di un'oggetto semplice innestato -->
+<!-- 		si usa "association" e typeOf per definirne il tipo -->
+	<association property="contoDellaTransazione" javaType="it.exolab.bancaDB.models.ContoCorrente">
+		<result property="idContoCorrente" column="ID_CONTO_CORRENTE"/>
+		<result property ="dataCreazione" column ="DATA_CREAZIONE"/>
+		<result property ="saldo" column ="SALDO"/>
+		<result property ="idUser" column = "ID_USER"/>
+		<result property ="idStatoContoCorrente" column = "ID_STATO_CONTO_CORRENTE"/>
+	</association>
+	<association property="tipoTransazione" javaType="it.exolab.bancaDB.models.TipoTransazione">
+	<result property ="idTipoTransazione" column = "ID_TIPO_TRANSAZIONE"/>
+	<result property ="descrizioneTipo" column = "DESCRIZIONE_TIPO"/>
+	</association>
+	<association property="statoTransazione" javaType="it.exolab.bancaDB.models.StatoTransazione">
+	<result property ="idStatoTransazione" column = "ID_STATO_TRANSAZIONE"/>
+	<result property ="descrizione" column = "DESCRIZIONE"/>
+	</association>
+	<association property="userTransazione" javaType="it.exolab.bancaDB.models.User">
+		<result property ="idUser" column ="ID_USER"/>
+		<result property ="nome" column ="NOME"/>
+        <result property ="cognome" column ="COGNOME"/>
+        <result property ="email" column ="EMAIL"/>
+        <result property ="password" column ="PASSWORD"/>
+        <result property ="idRuolo" column ="ID_RUOLO"/>
+	</association>
+	</resultMap>
+</mapper>

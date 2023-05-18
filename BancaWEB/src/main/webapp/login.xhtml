@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <style>
+        body {
+            background-color: black;
+        }
+        
+        #LoginForm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('img/ScrittaExo.png');
+            background-size: 200vh;
+            background-position: center;
+        }
+        
+         #LoginForm .ui-card {
+            border: 2px solid ;
+            border-color: #C5E1A5;
+        }
+        
+        #LoginForm .ui-inputfield {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        #LoginForm .ui-button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+
+    <h:form id="LoginForm">
+	 
+        <p:card styleClass="ui-card">
+            <div style="text-align: center;">
+            <p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+                <p:outputLabel for="email" value="Email: " style="color: white" />
+                <p:inputText id="email" value ="#{userBean.user.email}" placeholder="Inserisci Email"/>
+
+                <p:outputLabel for="password" value="Password: " style="color: white"/>
+                <p:inputText id="password" value="#{userBean.user.password}" toggleMask="true" redisplay="true" placeholder="Inserisci Password"/>
+
+                <div>
+                    <p:commandButton value="Login" action="#{userBean.findByEmailAndPassword()}" />   
+                    <p:button value="Iscriviti" outcome="registrati.xhtml" />           
+                </div>
+            </div>
+        </p:card>
+    </h:form>
+</ui:composition>
+
+
+

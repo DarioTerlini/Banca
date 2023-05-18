@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title>Registrazione</title>
+    <style>
+        .center-card {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            margin-top: 10%;
+            border: 2px solid;
+            border-color: #C5E1A5;
+        }
+    </style>
+</h:head>
+<h:body style="background-color: #000">
+    <h:form id="RegistratiForm">
+        <p:card header="ISCRIVITI" styleClass="center-card">
+            <div style="display: flex; flex-direction: column;">
+           <p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+                <p:outputLabel for="nome" value="Nome: "/>
+                <p:inputText id="nome" value ="#{userBean.user.nome}" placeholder="Inserisci il Nome">
+                </p:inputText>
+	            
+                <p:outputLabel for="cognome" value="Cognome: "/>
+                <p:inputText id="cognome" value ="#{userBean.user.cognome}" placeholder="Inserisci il Cognome" />
+
+                <p:outputLabel for="email" value="Email: "/>
+                <p:inputText id="email" value ="#{userBean.user.email}" placeholder="Inserisci Email" />
+
+                <p:outputLabel for="password" value="Password: "/>
+                <p:inputText id="password" value ="#{userBean.user.password}" type="password" placeholder="Inserisci Password" />
+
+                <div style="align-self: flex-end; margin-top: 10px">
+                    <p:commandButton value="Iscriviti" action="#{userBean.registraUser()}"/>                   
+                </div>
+            
+            </div>
+        </p:card>
+    </h:form>
+    </h:body>
+</html>

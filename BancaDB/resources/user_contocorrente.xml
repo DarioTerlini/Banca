@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="it.exolab.bancaDB.mappers.UserContoCorrenteMapper">
+<insert id="insert" parameterType="it.exolab.bancaDB.models.UserContoCorrente" useGeneratedKeys="true" keyProperty="idUserContoCorrente" keyColumn="ID_USER_CONTO_CORRENTE" >
+		INSERT INTO USER_CONTOCORRENTE(ID_USER, ID_CONTO_CORRENTE)
+		VALUES(
+			#{idUser},
+            #{idContoCorrente}
+           
+		);
+	</insert>
+</mapper>

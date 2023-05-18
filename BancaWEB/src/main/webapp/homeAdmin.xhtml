@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Admin Profile</title>
+    </h:head>
+
+    <h:body>
+        <h:form>    
+        <ui:include src="navAdmin.xhtml" />       
+            
+            
+               <p:outputPanel id="actions">
+                     <div id="container">
+                        <div id="left" style="display: inline-block;">
+                           <p:card>
+                              <f:facet name="title">
+                                Actions
+                              </f:facet>
+                             <p:commandButton value="Visualizza lista User"
+                                action="#{userBean.showUsers()}" update="actions"  />
+                           <br/><br/>
+                           <p:commandButton value="Visualizza lista Conti"
+                                action="#{contoCorrenteBean.showConti()}" update="actions" />
+                           </p:card>
+                    </div>
+
+                    <div id="right" style="width: 100%; margin-bottom: 2em" >
+                        <p:outputPanel rendered="#{userBean.showAllUser}">
+                            <ui:include src="listaUser.xhtml" />
+                        </p:outputPanel>
+                        <p:outputPanel rendered="#{contoCorrenteBean.showAllConti}">
+                            <ui:include src="listaConti.xhtml" />
+                        </p:outputPanel>
+                    </div>
+                </div>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>

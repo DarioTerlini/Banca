@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="it.exolab.bancaDB.mappers.RuoloMapper">
+<select id="findAllRuolo" resultMap="RuoloMapper">
+           SELECT R.ID_RUOLO, R.DESCRIZIONE
+           FROM RUOLO R;
+	</select>
+	<resultMap id ="RuoloMapper" type="it.exolab.bancaDB.models.Ruolo">
+		<result property ="idRuolo" column ="ID_RUOLO"/>
+		<result property ="descrizione" column ="DESCRIZIONE"/>
+	<!-- 		collection viene usata per le liste ed il tipo viene definito da "ofType", in caso di un'oggetto semplice innestato -->
+<!-- 		si usa "association" e typeOf per definirne il tipo -->
+	<collection property="listaUser" ofType="it.exolab.bancaDB.models.User">
+	<result property ="idUser" column = "ID_USER"/>
+	<result property ="nome" column = "NOME"/>
+	<result property ="cognome" column = "COGNOME"/>
+	<result property ="email" column = "EMAIL"/>
+	<result property ="password" column = "PASSWORD"/>
+	<result property ="idRuolo" column = "ID_RUOLO"/>
+	</collection>
+	</resultMap>
+</mapper>

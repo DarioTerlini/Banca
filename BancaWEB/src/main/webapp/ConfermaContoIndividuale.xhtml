@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel rendered="#{viewBean.viewHome == 5}">
+    <p:card>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <p:commandButton style="margin:10px" value="Apri Conto"
+                    action="#{viewBean.setViewHome(1)}"
+                    onclick="#{contoCorrenteBean.apriConto()}" update="actions" />
+            </div>
+            <div style="margin-top: 0px; align: right">
+                <p:commandButton icon="pi pi-fw pi-times"
+                    style="margin:10px; color: white; background-color: red; border-color: red;"
+                    action="#{viewBean.setViewHome(0)}" update="actions" />
+            </div>
+        </div>
+    </p:card>
+</p:outputPanel>
+
+</ui:composition>

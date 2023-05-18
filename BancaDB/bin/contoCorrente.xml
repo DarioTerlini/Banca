@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="it.exolab.bancaDB.mappers.ContoCorrenteMapper">
+<select id="findAllContoCorrente" resultMap="ContoCorrenteMapper">
+           SELECT 
+		   C.ID_CONTO_CORRENTE, C.DATA_CREAZIONE, C.SALDO, C.ID_STATO_CONTO_CORRENTE, C.IBAN,
+           U.ID_USER, U.NOME, U.COGNOME, U.EMAIL
+           FROM CONTO_CORRENTE  AS C
+           LEFT JOIN USER_CONTOCORRENTE AS UC ON C.ID_CONTO_CORRENTE = UC.ID_CONTO_CORRENTE 
+           LEFT JOIN USER AS U ON UC.ID_USER = U.ID_USER
+		   LEFT JOIN STATO_CONTO_CORRENTE AS SC ON C.ID_STATO_CONTO_CORRENTE = SC.ID_STATO_CONTO_CORRENTE;
+			
+	</select>
+	
+	<insert id="insert" parameterType="it.exolab.bancaDB.models.ContoCorrente" useGeneratedKeys="true" keyProperty="idContoCorrente" keyColumn="ID_CONTO_CORRENTE" >
+		INSERT INTO CONTO_CORRENTE(DATA_CREAZIONE, SALDO,  ID_STATO_CONTO_CORRENTE, IBAN)
+		VALUES(
+			NOW(6),
+			#{saldo},
+            #{idStatoContoCorrente},
+            #{iban}
+           
+		);
+	</insert>
+	
+	<select id="findById" resultMap="ContoCorrenteMapper" parameterType="it.exolab.bancaDB.models.ContoCorrente">
+                SELECT 
+		   C.ID_CONTO_CORRENTE, C.DATA_CREAZIONE, C.SALDO, C.ID_STATO_CONTO_CORRENTE,
+           U.ID_USER, U.NOME, U.COGNOME, U.EMAIL,
+		   SC.DESCRIZIONE
+           FROM CONTO_CORRENTE  AS C
+           LEFT JOIN USER_CONTOCORRENTE AS UC ON UC.ID_CONTO_CORRENTE = C.ID_CONTO_CORRENTE 
+           LEFT JOIN USER AS U ON U.ID_USER = UC.ID_USER
+		   LEFT JOIN STATO_CONTO_CORRENTE AS SC ON C.ID_STATO_CONTO_CORRENTE = SC.ID_STATO_CONTO_CORRENTE
+		   WHERE C.ID_CONTO_CORRENTE = #{idContoCorrente}
+	</select>
+	
+	<select id="findByIdUser" resultMap="ContoCorrenteMapper" parameterType="it.exolab.bancaDB.models.ContoCorrente">
+                SELECT 
+		   C.ID_CONTO_CORRENTE, C.DATA_CREAZIONE, C.SALDO, C.ID_STATO_CONTO_CORRENTE, C.IBAN,
+           U.ID_USER, U.NOME, U.COGNOME, U.EMAIL,
+           SC.DESCRIZIONE
+           FROM CONTO_CORRENTE  AS C
+           LEFT JOIN USER_CONTOCORRENTE AS UC ON C.ID_CONTO_CORRENTE = UC.ID_CONTO_CORRENTE 
+           LEFT JOIN USER AS U ON UC.ID_USER = U.ID_USER
+		   LEFT JOIN STATO_CONTO_CORRENTE AS SC ON C.ID_STATO_CONTO_CORRENTE = SC.ID_STATO_CONTO_CORRENTE
+           WHERE UC.ID_USER = #{idUser};
+		   
+	</select>
+	
+	<select id="findAllContoByStato" resultMap="ContoCorrenteMapper" parameterType="it.exolab.bancaDB.models.ContoCorrente">
+                SELECT 
+		   C.ID_CONTO_CORRENTE, C.DATA_CREAZIONE, C.SALDO, C.ID_STATO_CONTO_CORRENTE,
+           U.ID_USER, U.NOME, U.COGNOME, U.EMAIL,
+		   SC.DESCRIZIONE
+           FROM CONTO_CORRENTE  AS C
+           LEFT JOIN USER AS U ON C.ID_USER = U.ID_USER 
+		   LEFT JOIN STATO_CONTO_CORRENTE AS SC ON C.ID_STATO_CONTO_CORRENTE = SC.ID_STATO_CONTO_CORRENTE
+		   WHERE C.ID_STATO_CONTO_CORRENTE = #{idStatoContoCorrente}
+	</select>
+	
+	 <update id="update"
+		parameterType="it.exolab.bancaDB.models.ContoCorrente">
+
+		UPDATE CONTO_CORRENTE SET
+		ID_CONTO_CORRENTE = #{idContoCorrente},
+			SALDO=#{saldo},
+			ID_STATO_CONTO_CORRENTE=#{idStatoContoCorrente}
+
+		WHERE ID_CONTO_CORRENTE = #{idContoCorrente};
+	</update>
+	
+	<resultMap id ="ContoCorrenteMapper" type="it.exolab.bancaDB.models.ContoCorrente">
+		<result property ="idContoCorrente" column ="ID_CONTO_CORRENTE"/>
+		<result property ="dataCreazione" column ="DATA_CREAZIONE"/>
+		<result property ="saldo" column ="SALDO"/>
+		<result property ="iban" column ="IBAN"/>
+		<result property ="idStatoContoCorrente" column = "ID_STATO_CONTO_CORRENTE"/>
+	<!-- 		collection viene usata per le liste ed il tipo viene definito da "ofType", in caso di un'oggetto semplice innestato -->
+<!-- 		si usa "association" e typeOf per definirne il tipo -->
+	<association property="statoConto" javaType="it.exolab.bancaDB.models.StatoContoCorrente">
+		<result property="idStatoContoCorrente" column="ID_STATO_CONTO_CORRENTE"/>
+		<result property ="descrizione" column = "DESCRIZIONE"/>
+	</association>
+	<collection property="listaUserConti" ofType="it.exolab.bancaDB.models.User">
+	<result property ="idUser" column = "ID_USER"/>
+	<result property ="nome" column = "NOME"/>
+	<result property ="cognome" column = "COGNOME"/>
+	<result property ="email" column = "EMAIL"/>
+	<result property ="password" column = "PASSWORD"/>
+	<result property ="idRuolo" column = "ID_RUOLO"/>
+	</collection>
+	<collection property="listaTransazioni" ofType="it.exolab.bancaDB.models.Transazione">
+	    <result property ="idTransazione" column ="ID_TRANSAZIONE"/>
+		<result property ="importo" column ="IMPORTO"/>
+		<result property ="idStatoTransazione" column ="ID_STATO_TRANSAZIONE"/>
+		<result property ="idTipoTransazione" column = "ID_TIPO_TRANSAZIONE"/>
+		<result property ="idContoCorrente" column = "ID_CONTO_CORRENTE"/>
+	</collection>
+	</resultMap>
+</mapper>

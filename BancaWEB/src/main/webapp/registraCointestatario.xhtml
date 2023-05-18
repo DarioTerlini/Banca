@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+				
+				<p:outputPanel rendered="#{viewBean.viewHome == 7}">
+				<p:card header="Inserisci i dati correttamente e registra il cointestatario" styleClass="center-card">
+				<div>
+				  <div>
+				   <p:commandButton icon="pi pi-fw pi-times"
+								style="margin:10px; color: white; background-color: red; border-color: red;"
+								 action="#{userBean.resetListAndBackhome()}" update="actions" />
+				  </div>
+				  
+				    <div style="display: flex; flex-direction: column;">
+		                <p:outputLabel for="nome" value="Nome: "/>
+		                <p:inputText id="nome" value ="#{userBean.userCointestatario.nome}" />
+		
+		                <p:outputLabel for="cognome" value="Cognome: "/>
+		                <p:inputText id="cognome" value ="#{userBean.userCointestatario.cognome}" />
+		
+		                <p:outputLabel for="email" value="Email: "/>
+		                <p:inputText id="email" value ="#{userBean.userCointestatario.email}" />
+		
+		                <p:outputLabel for="password" value="Password: "/>
+		                <p:inputText id="password" value ="#{userBean.userCointestatario.password}" />
+
+                  <div style="align-self: flex-end; margin-top: 10px">
+                    <p:commandButton value="Iscriviti" action="#{userBean.registraUserCointestatario()}"
+                    update="actions"/>  
+                 </div>
+               </div>
+            </div>
+        </p:card>
+        <p:messages id="messageUserErrato" showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+    </p:outputPanel>                     
+  </ui:composition>

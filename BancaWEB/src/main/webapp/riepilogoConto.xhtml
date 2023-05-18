@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:p="http://primefaces.org/ui">
+	
+	<style>
+	    .ui-datatable-frozenlayout-left {
+	        width: 20%;
+	    }
+	    .ui-datatable-frozenlayout-right {
+	        width: 80%;
+	    }
+	</style>
+	    <p:outputPanel id="contiDelloUser" rendered="#{viewBean.viewHome == 2}">
+	
+		    <div class="card">
+		        <h5 style="margin-top:0"></h5>
+		
+			    <p:dataTable id="listaContiUser" var="contoCorrente" value="#{contoCorrenteBean.listaContiUser}" 
+			    	scrollable="true" scrollHeight="250" >
+			        <p:column headerText="IBAN">
+			            <h:outputText value="#{contoCorrente.iban}" />
+			        </p:column>
+			        <p:column headerText="Saldo">
+			            <h:outputText value="#{contoCorrente.saldo} €" />
+			        </p:column>
+			        <p:column headerText="Stato Conto">
+			            <h:outputText value="#{contoCorrente.statoConto.descrizione}" />
+			        </p:column>
+			        <p:column headerText="User">
+			            <h:outputText value="#{userBean.user.nome}" />-
+			            <h:outputText value="#{userBean.user.cognome}" />
+			        </p:column>
+			<!--         <p:column headerText="Utente"> -->
+			<!--             <h:outputText value="#{listaUserConto.contoCorrente.listaUserConti[0].nome} 
+			#{contoCorrente.listaUserConti[0].cognome}" /> -->
+			<!--         </p:column> -->
+				<f:metadata>
+				     <f:viewAction action="#{contoCorrenteBean.init()}"/>
+				</f:metadata>
+			    </p:dataTable>
+		    </div>
+	    </p:outputPanel>
+</ui:composition>

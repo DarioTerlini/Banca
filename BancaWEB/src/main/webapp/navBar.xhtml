@@ -1,0 +1,46 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+
+	<p:card
+		style="width: 100%; border: 2px solid; border-color: #C5E1A5;">
+
+		<div style="width: 100%; display: flex; justify-content: space-between;">
+			
+			<div>
+				<h:graphicImage value="img/ScrittaExo.png" style="height: 100px; width:150px" />
+				
+			</div>
+			
+					
+					<div class="card" style=" margin-top:0px; margin-left: 80px  ">
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								<p:avatar icon="pi pi-fw pi-user" />
+							</f:facet>
+
+							<h:outputText value="Name:" />
+							<h:outputText value="#{userBean.user.nome}" />
+
+							<h:outputText value="Cognome:" />
+							<h:outputText value="#{userBean.user.cognome}" />
+						</p:panelGrid>
+					</div>
+			
+			<div>
+			   <p:commandButton
+				style="color: white; background-color: red; border-color: red; margin-left:130px; margin-top:50px"
+				value="LOGOUT" action="#{userBean.logout()}"  icon="pi pi-fw pi-power-off"/>
+		    </div>
+		</div>
+	</p:card>
+
+
+</ui:composition>
